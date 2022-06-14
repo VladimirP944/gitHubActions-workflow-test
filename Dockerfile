@@ -15,7 +15,7 @@ RUN npm install \
 
 RUN npm ci --only=production
 
-COPY ../source /app
+COPY ../javascript /app
 
 EXPOSE 5000
 
