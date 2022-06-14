@@ -9,9 +9,7 @@ WORKDIR /app
 
 COPY . .
 
-RUN npm install \
-    && ncu -u \
-    && npm install
+RUN npm install
 
 RUN npm ci --only=production
 
