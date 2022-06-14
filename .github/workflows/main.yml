@@ -15,7 +15,8 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 
 jobs:
-  on-success:
+
+  push_to_DockerHub:
     name: Push to docker hub
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
