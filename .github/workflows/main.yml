@@ -19,7 +19,6 @@ jobs:
     name: Push to docker hub
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    needs: [build_test]
 
     steps:
       - name: checkout repo
