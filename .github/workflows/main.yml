@@ -15,42 +15,11 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 
 jobs:
-  # This workflow contains a single job called "build"
-  build_test:
-    name: Build & Test App
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [16.15.0]
-
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
-
-      # Runs a single command using the runners shell
-      - name: setup node
-        uses: actions/setup-node@master
-        with:
-          node-version: ${{ matrix.node-version }}
-
-      # Runs a set of commands using the runners shell
-      - name: Install dependencies
-        run: |
-          npm install
-          npm ci
-
-      - name: build & test
-        run: |
-          npm run lint
-    
 
   push_to_DockerHub:
     name: Push to docker hub
     runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     needs: [build_test]
 
     steps:
@@ -75,12 +44,12 @@ jobs:
           context: ./
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/express-demo:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/express-demo2:latest
 
       - name: Run the image in a container
         uses: addnab/docker-run-action@v3
         with:
-          image: ${{ secrets.DOCKERHUB_USERNAME }}/express-demo:latest
+          image: ${{ secrets.DOCKERHUB_USERNAME }}/express-demo2:latest
           run: |
             echo "running the docker image"
             echo "Testing the nodejs  app endpoints"
