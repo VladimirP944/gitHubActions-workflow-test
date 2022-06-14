@@ -11,8 +11,6 @@ COPY . .
 
 RUN npm install
 
-RUN npm ci --only=production
-
 COPY . /app
 
 EXPOSE 5000
