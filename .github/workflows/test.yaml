@@ -44,6 +44,3 @@ jobs:
         run: |
           npm run lint
 
-  call-workflow-1-in-local-repo:
-    uses: ./.github/workflows/main.yml
-
